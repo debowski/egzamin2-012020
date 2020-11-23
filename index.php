@@ -7,6 +7,25 @@
   </head>
   <body>
 
+<!-- Połączenie z bazą -->
+<?php
+  $serwer = "localhost";
+  $user = "root";
+  $password ="";
+  $baza = "sklep";
+
+  $mysqli = new mysqli($serwer, $user, $password, $baza);
+  //sprawdzenie połączenia:
+  if ($mysqli -> connect_errno) {
+    echo "Nie udało się połączyć z MySQL: ".$mysqli->connect_error;
+    exit();
+  }
+
+  $sql = "SELECT id, nazwa, opis, cena FROM podzespoly WHERE cena < 1000";
+  $wynik = $mysqli->query($sql);
+?>
+
+
     <div class="menu">
       <a href="index.php">Główna</a>
       <a href="procesory.html">Procesory</a>
@@ -27,12 +46,21 @@
           <th>OPIS</th>
           <th>CENA</th>
         </tr>
-        <tr>
-          <td>aaa</td>
-          <td>bbb</td>
-          <td>ccc</td>
-          <td>ddd</td>
-        </tr>
+
+        <?php
+        if ($wynik->num_rows > 0){
+          while ($rekord = $wynik->fetch_assoc()){
+            echo "<tr>";
+            echo "<td>".$rekord["id"]."</td>";
+            echo "<td>".$rekord["nazwa"]."</td>";
+            echo "<td>".$rekord["opis"]."</td>";
+            echo "<td>".$rekord["cena"]."</td>";
+            echo "</tr>";
+          }
+
+        } else {echo "brak wyników";}
+
+        ?>
       </table>
 
     </div>
@@ -53,6 +81,6 @@
       <div class="stopka">
         <p>Stronę wykonał: 123456781011</p>
       </div>
-
+<?php $mysqli->close(); ?>
   </body>
 </html>
