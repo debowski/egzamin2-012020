@@ -1,0 +1,8 @@
+select id, nazwa, opis, cena FROM podzespoly;
+
+SELECT podzespoly.nazwa, podzespoly.opis FROM `podzespoly` LEFT JOIN producenci ON producenci_id = producenci.id WHERE producenci.nazwa = 'intel'SELECT podzespoly.nazwa, podzespoly.opis FROM `podzespoly` LEFT JOIN producenci ON producenci_id = producenci.id WHERE producenci.nazwa = 'intel' AND podzespoly.dostepnosc='1';
+
+SELECT podzespoly.nazwa, producenci.nazwa FROM podzespoly LEFT JOIN producenci ON producenci_id = producenci.id;
+
+UPDATE `producenci` SET `nazwa`='PATRIOT' WHERE `nazwa`='Patriot'; 
+
